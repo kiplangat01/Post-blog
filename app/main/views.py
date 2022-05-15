@@ -56,7 +56,7 @@ def logout():
 @login_required
 def account():
     
-    pitch= Pitch.query.filter_by(user_id=current_user.id)
+    blog= Blog.query.filter_by(user_id=current_user.id)
     form=UpdateAccountForm()
     if form.validate_on_submit():
         current_user.username=form.username.data
@@ -70,7 +70,7 @@ def account():
         form.username.data=current_user.username
         form.email.data=current_user.email
     image_file= url_for('static',filename='profiles/'+current_user.profile)
-    return render_template('account.html', title='Account',image_file=image_file,form=form,pitch=pitch )
+    return render_template('account.html', title='Account',image_file=image_file,form=form,blog=blog )
 
 @users.route('/forgot/password',methods=['POST','GET'])
 def forgot_password():
