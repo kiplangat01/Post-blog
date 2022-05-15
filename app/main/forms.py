@@ -6,11 +6,7 @@ from flask_login import current_user
 from app.models import User
     
 class Register(FlaskForm):
-    """_summary_
-
-    Args:
-        Form (_type_): _description_
-    """
+    
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -18,13 +14,12 @@ class Register(FlaskForm):
     submit = SubmitField('Signup')
 
     def validate_username(self, username):
-        """
-        """
+    
         user = User.query.filter_by(username=username.data).first()
 
         if user:
             raise ValidationError(
-                "That username is already taken! Please choose another")
+                "username is already taken")
 
     def validate_email(self, email):
         """
@@ -37,11 +32,7 @@ class Register(FlaskForm):
 
 
 class Login(FlaskForm):
-    """
-
-    Args:
-        Form (_type_): _description_
-    """
+    
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
