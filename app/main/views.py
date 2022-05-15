@@ -2,10 +2,11 @@ from flask import Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, request
 from .forms import Register, Login,ResetPassword,UpdateAccountForm,VerifyOtp,ForgotPassword
-from app import  db, bcrypt,mail
+from app import  db, bcrypt, mail
 from flask_mail import  Message
 import random
 import math
+
 from app.models import Blog
 from app.models import User, Otp
 
@@ -13,12 +14,11 @@ from app.models import User, Otp
 main= Blueprint('main',__name__)
 
 @main.route('/')
-def home():
-    # All pitches here
-    pitches = Blog.query.all()
+def index():
+    blog = Blog.query.all()
 
-    # comments_list = comments_cutter(pitches.comments)
-    return render_template('index.html', pitches=pitches)
+    
+    return render_template('index.html', blog= blog)
 
 
 
@@ -98,7 +98,7 @@ def forgot_password():
             msg=Message("Hello",sender="apollolibrary99@gmail.com",recipients=[user.email])
             msg.body = token
             mail.send(msg)
-            flash('check your ')
+            flash('check your')
             return redirect(url_for('users.verify_otp',userid=user.id))
 
     return render_template('recover.html',form=form)
@@ -120,7 +120,7 @@ def verify_otp(userid):
             db.session.commit()
             return redirect(url_for('users.reset',userid=user.id))
 
-    return render_template('otp_verification.html',form=form)
+    return render_template('verify.html',form=form)
 
 
 def generate_token(length):

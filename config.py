@@ -4,13 +4,14 @@ import os
 class Config:
     
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = 'postgresql://moringa:bca321@localhost:5432/post'
 
-    MAIL_SERVER = 'smtp.gmail.com'
-    MAIL_PORT = 465
-    MAIL_USERNAME = 'apollolibrary99@gmail.com'
-    MAIL_PASSWORD =  os.environ.get('MAIL_PASSWORD')
+    SECRET_KEY = 'code for better'
+
+    # MAIL_SERVER = 'smtp.gmail.com'
+    # MAIL_PORT = 465
+    # MAIL_USERNAME = 'apollolibrary99@gmail.com'
+    # MAIL_PASSWORD =  os.environ.get('MAIL_PASSWORD')
 
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True

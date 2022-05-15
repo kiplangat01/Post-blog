@@ -77,3 +77,17 @@ class UpdateAccountForm(FlaskForm):
             user=User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError("email alread taken")
+
+
+
+
+class BlogForm(FlaskForm):
+   
+    title=StringField('Title', validators=[DataRequired()])
+    content=TextAreaField('Content', validators=[DataRequired(),Length(min=2, max=300)])
+    submit = SubmitField('Post Blog')
+    
+    
+class CommentsForm(FlaskForm):
+    content=TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Add')
