@@ -3,6 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, request
 from .forms import Register, Login,ResetPassword,UpdateAccountForm,VerifyOtp,ForgotPassword
 from app import  db, bcrypt, mail
+from app.main.forms import BlogForm,CommentsForm
 from flask_mail import  Message
 import random
 import math
@@ -10,7 +11,7 @@ import math
 from app.models import Blog
 from app.models import User, Otp
 
-
+posts= Blueprint('posts',__name__)
 main= Blueprint('main',__name__)
 
 @main.route('/')
@@ -147,3 +148,17 @@ def reset(userid):
             flash('passwords cannot be the same as old')
     return render_template('reset.html',form=form)
 
+
+@posts.route('/comments/<id>',methods=['POST', 'GET'])
+@login_required
+def comments(id):
+    form = CommentsForm()
+    blog = Blog.query.filter_by(id=id).first()
+    if form.validate_on_submit():
+        blog.comments+=form.content.data + '~'
+        db.session.commit()
+        flash('thanks for your reaction')
+        
+        return redirect(url_for('main.home'))
+    form.content.data = "Your comment here"
+    return render_template('comments.html', form=form , blog = blog)
