@@ -10,6 +10,19 @@ from app.models import Blog
 from app.models import User, Otp
 
 
+main= Blueprint('main',__name__)
+
+@main.route('/')
+def home():
+    # All pitches here
+    pitches = Blog.query.all()
+
+    # comments_list = comments_cutter(pitches.comments)
+    return render_template('index.html', pitches=pitches)
+
+
+
+
 users= Blueprint('users',__name__)
 
 @users.route('/register', methods=['POST', 'GET'])

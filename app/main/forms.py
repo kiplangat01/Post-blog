@@ -28,7 +28,7 @@ class Register(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError(
-                "Temail already taken!")
+                "email already taken!")
 
 
 class Login(FlaskForm):
@@ -70,10 +70,10 @@ class UpdateAccountForm(FlaskForm):
         if username.data!=current_user.username:
             user=User.query.filter_by(username=username.data).first()
             if user:
-                raise ValidationError("That username is taken. Please choose a different one")
+                raise ValidationError(" username alredy taken")
 
     def validate_email(self, email):
         if email.data!=current_user.email:
             user=User.query.filter_by(email=email.data).first()
             if user:
-                raise ValidationError("That email is taken. Please choose a different one")
+                raise ValidationError("email alread taken")
