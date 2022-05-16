@@ -7,9 +7,10 @@ from app.main.forms import BlogForm,CommentsForm
 from flask_mail import  Message
 import random
 import math
-
 from app.models import Blog
 from app.models import User, Otp
+
+
 
 posts= Blueprint('posts',__name__)
 main= Blueprint('main',__name__)
@@ -158,7 +159,18 @@ def comments(id):
         blog.comments+=form.content.data + '~'
         db.session.commit()
         flash('thanks for your reaction')
+        db.session.commit()
         
-        return redirect(url_for('main.home'))
-    form.content.data = "Your comment here"
+    form.content.data = "Your comment"
     return render_template('comments.html', form=form , blog = blog)
+
+
+# Endpoint for deleting a record
+@posts.route("/Blog/<id>", methods=["DELETE"])
+def guide_delete(id):
+    form = Blog.query.filter_by(id=id).first()
+    db.session.delete(Blog)
+    if form.validate_on_submit():
+       db.session.commit()
+    
+    return redirect(url_for('main.home'))
