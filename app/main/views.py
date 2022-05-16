@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, request
 from .forms import Register, Login,ResetPassword,UpdateAccountForm,VerifyOtp,ForgotPassword
 from app import  db, bcrypt, mail
-from app.main.forms import BlogForm,CommentsForm
+from app.main.forms import BlogForm, CommentsForm
 from flask_mail import  Message
 import random
 import math
