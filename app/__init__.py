@@ -32,7 +32,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     bootstrap.init_app(app)
     from .main.views import users
-    # from app.Blog.routes import posts
+    # from app.views import posts
     from .main.views import main
 
     app.register_blueprint(main)

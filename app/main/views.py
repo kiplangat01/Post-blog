@@ -17,11 +17,7 @@ main= Blueprint('main',__name__)
 
 @main.route('/')
 def index():
-    blog = Blog.query.all()
-
-    
-    return render_template('index.html', blog= blog)
-
+    return render_template('index.html')
 
 
 
