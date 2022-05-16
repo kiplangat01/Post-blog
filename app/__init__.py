@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_bcrypt import Bcrypt
+from flask_script._compat import text_type
 from flask_login import LoginManager
 from flask_mail import Mail
 from config import config_options
