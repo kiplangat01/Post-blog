@@ -16,8 +16,13 @@ posts= Blueprint('posts',__name__)
 main= Blueprint('main',__name__)
 
 @main.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    # All pitches here
+    blog = Blog.query.all()
+
+    # comments_list = comments_cutter(pitches.comments)
+    return render_template('index.html', blog=blog)
+
 
 
 
@@ -29,10 +34,8 @@ def register():
         return redirect(url_for('main.home'))
     form = Register()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(
-            form.password.data).decode('utf-8')
-        user = User(username=form.username.data,
-                    email=form.email.data, password=hashed_password)
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data,email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your Account Has been Created! You are now able to login  in', 'success')
