@@ -1,0 +1,9 @@
+body{
+    background-color: rgb(53, 198, 198);
+}
+
+#nav{
+    justify-content: end;
+    text-align: end;
+
+}

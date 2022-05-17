@@ -1,9 +1,9 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 {% block body %}
     <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-md-6  mx-auto mt-auto mb-auto px-5 ">
-                <a href="{{url_for('posts.create')}}" class="btn btn-lg btn-outline">Post</a>
+                <a href="{{url_for('users.register')}}" class="btn btn-lg btn-outline">Post</a>
             </div>
             <div class="col-md-6">
                 <img src="{{url_for('static',filename='/assets/img.svg')}}" class="img-responsive f-img m-5" alt="">
@@ -12,7 +12,7 @@
     </div>
     <!-- To be removed -->
     <div class="container-fluid d-flex flex-wrap flex-row justify-content-center">
-    {% for pitch in pitches %}
+    {% for blog in blogs %}
         <div class=" pitches card  m-4">
           
               <div class="row  p-2">

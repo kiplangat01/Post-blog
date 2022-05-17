@@ -7,8 +7,8 @@ from app.main.forms import BlogForm, CommentsForm
 from flask_mail import  Message
 import random
 import math
-from app.models import Blog
-from app.models import User, Otp
+from app.models import *
+
 
 
 
@@ -17,11 +17,9 @@ main= Blueprint('main',__name__)
 
 @main.route('/')
 def home():
-    # All pitches here
-    blog = Blog.query.all()
+    # blog = Blog.query.all()
 
-    # comments_list = comments_cutter(pitches.comments)
-    return render_template('index.html', blog=blog)
+    return render_template('index.html')
 
 
 
