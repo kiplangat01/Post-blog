@@ -1,9 +1,26 @@
 body{
-    background-color: rgb(53, 198, 198);
+    font-family: sans-serif;
 }
 
-#nav{
-    justify-content: end;
+.justify-content-evenly{
     text-align: end;
+    justify-content: end;
+}
 
+
+.navbar{
+    text-align: end;
+}
+.btn-outline{
+    background-color: brown;
+    color: white;
+    width: 20rem;
+    height: 3rem;
+}
+.navbar-nav{
+    justify-content: center;
+}
+#nav{
+    margin-left: -15px;
+    margin-right: -15px;
 }
