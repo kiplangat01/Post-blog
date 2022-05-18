@@ -7,9 +7,10 @@ from app.main.forms import BlogForm, CommentsForm
 from flask_mail import Message
 import random
 import math
-from app.models import *
+from app.models import User, Otp, Blog
 
 
+users= Blueprint('users',__name__)
 posts = Blueprint('posts', __name__)
 main = Blueprint('main', __name__)
 
@@ -32,12 +33,12 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(
             form.password.data).decode('utf-8')
-        user = User(username=form.username.data,
+        user = User (username=form.username.data,
                     email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your Account Has been Created', 'success')
-        return redirect(url_for('users.login'))
+        return redirect(url_for('Users.login'))
     return render_template('register.html', title='Register', form=form)
 
 
@@ -86,25 +87,23 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form, blog=blog)
 
 
-@users.route('/forgot/password', methods=['POST', 'GET'])
+@users.route('/forgot/password',methods=['POST','GET'])
 def forgot_password():
-    form = ForgotPassword()
+    form=ForgotPassword()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        token = generate_token(6)
-        otp = Otp(otp=token, user_id=user.id)
+        user=User.query.filter_by(email=form.email.data).first()
+        token=generate_token(6)
+        otp=Otp(otp=token,user_id=user.id)
         db.session.add(otp)
         db.session.commit()
-        if user:
-            msg = Message(
-                "Hello", sender="apollolibrary99@gmail.com", recipients=[user.email])
+        if user:    
+            msg=Message("Hello",sender="apollolibrary99@gmail.com",recipients=[user.email])
             msg.body = token
             mail.send(msg)
-            flash('check your')
-            return redirect(url_for('users.verify_otp', userid=user.id))
+            flash('We have sent you an email with instructions to reset your password')
+            return redirect(url_for('users.verify_otp',userid=user.id))
 
-    return render_template('recover.html', form=form)
-
+    return render_template('forgot_password.html',form=form)
 
 @users.route('/otp-verify/<userid>', methods=['POST', 'GET'])
 def verify_otp(userid):
@@ -121,7 +120,7 @@ def verify_otp(userid):
             u = db.session.get(Otp, 1)
             db.session.delete(u)
             db.session.commit()
-            return redirect(url_for('users.reset', userid=user.id))
+            return redirect(url_for('Users.reset', userid=user.id))
 
     return render_template('verify.html', form=form)
 

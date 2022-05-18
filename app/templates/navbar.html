@@ -15,8 +15,8 @@
             <a class="nav-link active" href="{{url_for('main.home')}}">About</a>
           </li>
           {% if current_user.is_authenticated %}
-          <a class="nav-link active" href="{{url_for('users.account')}}">Account</a>
-          <a class="nav-link active" href="{{url_for('users.logout')}}">Logout</a>
+          <a class="nav-link active" href="{{url_for('Users.account')}}">Account</a>
+          <a class="nav-link active" href="{{url_for('Users.logout')}}">Logout</a>
           {%else%}
           {%if request.url_rule.endpoint != 'register' %}
           <li class="nav-item">
