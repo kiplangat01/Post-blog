@@ -20,12 +20,12 @@
           {%else%}
           {%if request.url_rule.endpoint != 'register' %}
           <li class="nav-item">
-            <a class="nav-link active" href="{{url_for('users.register')}}">Register</a>
+            <a class="nav-link active" href="{{url_for('Users.register')}}">Register</a>
           </li>
           {% endif %}
           {%if request.url_rule.endpoint != 'login'%}
           <li class="nav-item">
-            <a class="nav-link active" href="{{url_for('users.login')}}">Login</a>
+            <a class="nav-link active" href="{{url_for('Users.login')}}">Login</a>
           </li>
           {%endif%}
         

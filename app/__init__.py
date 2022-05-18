@@ -31,9 +31,9 @@ def create_app(config_name):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
-    from .main.views import users
+    from app.main.views import users
     # from app.views import posts
-    from .main.views import main
+    from app.main.views import main
 
     app.register_blueprint(main)
     app.register_blueprint(users)
