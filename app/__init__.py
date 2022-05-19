@@ -31,13 +31,13 @@ def create_app(config_name):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
-    from app.main.views import users
-    # from app.views import posts
+    from app.users.views import users
     from app.main.views import main
+    from app.main.posts.views import posts
 
     app.register_blueprint(main)
     app.register_blueprint(users)
-    # app.register_blueprint(posts)
+    app.register_blueprint(posts)
 
     return app
 

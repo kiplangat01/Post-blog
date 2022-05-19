@@ -42,7 +42,7 @@ class Login(FlaskForm):
     submit = SubmitField('Login')
 
 
-class ForgotPassword(FlaskForm):
+class Forgot(FlaskForm):
 
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Reset')
@@ -53,23 +53,17 @@ class VerifyOtp(FlaskForm):
     submit = SubmitField('Verify')
 
 
-class ResetPassword(FlaskForm):
+class Reset(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[
-        DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset')
 
 
-class UpdateAccountForm(FlaskForm):
+class Update(FlaskForm):
 
-    username = StringField('Username', validators=[
-                           DataRequired(), Length(min=2, max=20)])
-
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-
-    picture = FileField('Update Profile Picture', validators=[
-                        FileAllowed(['jpg', 'png'])])
-
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     Submit = SubmitField('Update')
 
     def validate_username(self, username):
@@ -85,14 +79,26 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError("email alread taken")
 
 
-class BlogForm(FlaskForm):
+class Blog(FlaskForm):
 
     title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[
-                            DataRequired(), Length(min=2, max=300)])
+    content = TextAreaField('Content', validators=[DataRequired(), Length(min=2, max=300)])
     submit = SubmitField('Post Blog')
 
 
-class CommentsForm(FlaskForm):
+
+class Post(FlaskForm):
+    
+    title=StringField('Title', validators=[DataRequired()])
+    description=TextAreaField('Description', validators=[DataRequired(),Length(min=2, max=300)])
+    content=TextAreaField('Content', validators=[DataRequired(),Length(min=2)])
+    blog_image= FileField('Post Image', validators=[FileAllowed(['jpg','png','svg','jpeg','gif'])])
+    category=RadioField('Category', choices = [('Food','Food'),('Technology','Technology'),('Fashion','Fashion'),('Travel','Travel')])
+
+    submit = SubmitField('Create Post')
+
+
+
+class Comments(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Add')
