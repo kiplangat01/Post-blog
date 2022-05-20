@@ -4,7 +4,7 @@ from app import create_app,db
 from app.models import *
 
 
-app = create_app('dev')
+app = create_app('prod')
 manager = Manager(app)
 migrate = Migrate(app,db)
 manager.add_command('db',MigrateCommand)

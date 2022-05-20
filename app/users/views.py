@@ -12,7 +12,7 @@ users = Blueprint('users', __name__)
 @users.route('/register', methods=['POST','GET'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('posts.home'))
     form = Register()
     if form.validate_on_submit():
       hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf8')
@@ -39,7 +39,7 @@ def login():
             # args is a dict
             # get returns none if the next key does not exist
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            return redirect(next_page) if next_page else redirect(url_for('posts.home'))
         else:
             flash('Login unsuccessful. Please check email and password', 'danger')
 
@@ -49,7 +49,7 @@ def login():
 @users.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('main.home'))
+    return redirect(url_for('posts.home'))
 
 # @users.route('/subscribe', methods=['POST', 'GET'])
 # def subscribe():

@@ -8,7 +8,7 @@ class Post(FlaskForm):
     title=StringField('Title', validators=[DataRequired()])
     description=TextAreaField('Description', validators=[DataRequired(),Length(min=2, max=300)])
     content=TextAreaField('Content', validators=[DataRequired(),Length(min=2)])
-    blog_image= FileField('Post Image', validators=[FileAllowed(['jpg','png','svg','jpeg','gif'])])
+    # blog_image= FileField('Post Image', validators=[FileAllowed(['jpg','png','svg','jpeg','gif'])])
     submit = SubmitField('Create Post')
     
 

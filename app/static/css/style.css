@@ -18,6 +18,9 @@ footer{
     font-size: 20px;
     margin: 50px;
     text-align: left;
+    font-family: 'Lobster';
+    font-weight: bold;
+    font-size: 50px;
 }
 .navbar{
     text-align: end;

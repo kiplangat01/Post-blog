@@ -33,26 +33,7 @@
               
               </div>
 
-              <div class="m-3">
-                <form action="" method="post">
-                  {{form.hidden_tag()}}
-                  <div class="form-group">
-                          {% if form.content.errors %}
-                          {{form.content(class='form-control is-invalid')}}
-                              {% for error in form.email.errors %}
-                                  <div class="invalid-feedback">
-                                      {{error}}
-                                  </div>
-                              {% endfor %}
-                      {% else %}
-                          {{form.content(class='form-control bg-transparent border border-light',placeholder='Enter Your Comment')}}
-                      {% endif %}
-                  </div>
-                  <div class="text-center mt-3">
-                    {{form.submit(class='btn btn-outline post_submit')}}
-                </div>
-
-              </div>
+              
             </div>
           </div>
         </div>
