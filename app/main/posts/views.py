@@ -1,48 +1,43 @@
+from pdb import main
 from flask import Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from app.main.forms import Post,Comments
+from app.main.posts.forms import Post
 from app.models import Posts,Comments
 from app import db, mail
 from flask_mail import  Message
 from flask import render_template, url_for, flash, redirect, request
 posts= Blueprint('posts',__name__)
 
+
+@posts.route('/')
+def home():
+    
+    # comm=Comments.query.all()
+
+    # headline=Posts.query.filter_by(id=1).first()
+    
+
+    return render_template('index.html')
+
+
+
 @posts.route('/create', methods=['POST', 'GET'])
 @login_required
 def create():
     form = Post()
-    
     if form.validate_on_submit():
-        if form.blog_image.data:
-           
-            post = Posts(title=form.title.data,
-                        content=form.content.data,description=form.description.data, user_id=current_user.id,category=form.category.data,)
-            topic=post.title
-        
-            db.session.add(post)  
-            db.session.commit()          
+    
+        post = Posts(title=form.title.data,content=form.content.data,description=form.description.data, user_id=current_user.id)
 
+        db.session.add(post)  
+        db.session.commit()
 
-            
-            return redirect(url_for('main.home'))
+        return redirect(url_for('main.home'))
 
-
-        else:
-          flash('Your blog was not added','danger')
+    else:
+          flash('blog not added','danger')
           
-
-
-    return render_template('create.html', form=form, title='New Post')
-
-
-@posts.route('/categories/<category>')
-def categories(category):
-    posts = Posts.query.filter_by(category=category)
-    for post in posts:
-        image_file= url_for('static',filename='posts/'+post.blog_image)
-
-        post.blog_image= image_file
-    return render_template('categories.html', posts=posts)
+    return render_template('post.html', form=form, posts=post, title='Blog Post')
 
 @login_required
 @posts.route('/post/edit/<postid>',methods=['POST', 'GET'])
@@ -59,7 +54,7 @@ def post_edit(postid):
 
         db.session.add(edites)
         db.session.commit()
-        flash('Your Post Has been updated!','success')
+        flash('thanks for your post','success')
         return redirect(url_for("main.home"))
     else:
         form.title.data=edites.title
@@ -94,7 +89,7 @@ def comments(id):
         # posts.comments+=form.content.data + '~'
         db.session.add(comment)
         db.session.commit()
-        flash('Your comment was added successfully','success')
+        flash('comment added successfully','success')
         
         return redirect(url_for('main.home'))
     form.content.data = ""
@@ -107,6 +102,6 @@ def comment_delete(id):
     
     db.session.delete(comm)
     db.session.commit()
-    flash('Your comment was deleted successfully','success')
+    flash(' comment  deleted successfully','success')
 
     return redirect(url_for('main.home'))

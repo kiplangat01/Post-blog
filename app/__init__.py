@@ -32,10 +32,10 @@ def create_app(config_name):
     login_manager.init_app(app)
     bootstrap.init_app(app)
     from app.users.views import users
-    from app.main.views import main
+    # from app.main.posts.views import main
     from app.main.posts.views import posts
 
-    app.register_blueprint(main)
+    # app.register_blueprint(main)
     app.register_blueprint(users)
     app.register_blueprint(posts)
 
