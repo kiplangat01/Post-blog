@@ -1,5 +1,5 @@
 import os
-from flask_bcrypt import Bcrypt
+
 
 class Config:
     

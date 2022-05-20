@@ -2,8 +2,9 @@ from flask import Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, request
 from app.users.forms import Register, Login,UpdateAccountForm
-from app import db,bcrypt,mail
+from app import db,mail
 from flask_mail import  Message
+from werkzeug.security import generate_password_hash,check_password_hash
 from app.models import Posts, User
 
 
@@ -15,7 +16,7 @@ def register():
         return redirect(url_for('posts.home'))
     form = Register()
     if form.validate_on_submit():
-      hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf8')
+      hashed_password = generate_password_hash(form.password.data).decode('utf8')
       user=User(username=form.username.data,email=form.email.data,password=hashed_password)
       db.session.add(user)
       db.session.commit()
@@ -33,7 +34,7 @@ def login():
     form = Login()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+        if user and check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             flash(f'Welcome {user.username.title()} !! ', 'success')
             # args is a dict
