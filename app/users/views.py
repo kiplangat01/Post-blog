@@ -39,7 +39,7 @@ def login():
             # args is a dict
             # get returns none if the next key does not exist
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('posts.home'))
+            return redirect(next_page) if next_page else redirect(url_for('.home'))
         else:
             flash('Login unsuccessful. Please check email and password', 'danger')
 
